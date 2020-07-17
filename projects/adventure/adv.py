@@ -5,24 +5,32 @@ from world import World
 import random
 from ast import literal_eval
 
+# # Keep going until < 960 reached or I kill the execution
 # keep_going = True
-# counter = 999999
+
+# # Counter for iterations and seed (set at -1 since the first thing that happens
+# # is to increment it)
+# count = -1
 
 # while keep_going:
-#     if counter % 5000 == 0:
-#         print("Counter/Seed at:", counter)
-#     counter += 1
+#     # Increment counter and set as random seed
+#     count += 1
+#     random.seed(count)
 
-# random.seed(counter)
+#     # Print out every 5000 runs just so I can make sure things are happening
+#     if count % 5000 == 0:
+#         print("Iteration/Seed:", count)
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    To run the whole thing as a loop, indent everything below this
+    and make sure to uncomment all the appropriate blocks.
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-""" THIS SEED VALUE RESULTS IN A PATH 759 STEPS LONG """
-random.seed(1224949)
-
+""" THIS SEED VALUE RESULTS IN A PATH 959 STEPS LONG """
+random.seed(1224949)  # Comment this when looping
 
 # Load world
 world = World()
-
 
 # You may uncomment the smaller graphs for development and testing purposes.
 # map_file = "maps/test_line.txt"
@@ -48,7 +56,6 @@ traversal_path = []
 ### TODO ###
 # Create algorithm to explore dungeon as efficiently as possible
 """
-
 # Dictionary to store room exits information
 traversal_graph = {}
 # List to act as a stack for reverse movement commands
@@ -66,10 +73,6 @@ for exit in this_room_exits:
     traversal_graph[this_room_id][exit] = '?'
     question_marks += 1
 
-# print(player.current_room.id)
-# print(traversal_graph)
-# print('='*40)
-
 # Dictionary to map reversed directions
 reverse_dict = {
     'n': 's',
@@ -82,7 +85,7 @@ reverse_dict = {
 
 # Keep going until there are no more question marks
 while True:
-
+    # Start with empty move commands
     move, rev_move = '', ''
 
     """ This was my original implementation using a structured assignment"""
@@ -108,14 +111,14 @@ while True:
             # Save any to list
             unexplored_this_room.append(key)
 
-    # If there's anything in the unexplored list then assignment move and rev_move
+    # If there's anything in the unexplored list then assign move and rev_move
     if unexplored_this_room:
+        # Pick a move at random and then assign the opposite move
         move = random.choice(unexplored_this_room)
         rev_move = reverse_dict[move]
     """ End of random assignment """
 
-
-    # Use a stack to push reverse movement commands onto to back out of deadends
+    # Use a stack to push reverse movement commands onto to be able to back out of deadends
     if rev_move:
         movement_stack.append(rev_move)
 
@@ -157,9 +160,8 @@ while True:
 
 
 """
-End My code
+End of my code (except some condtionals and print statements)
 """
-
 
 # TRAVERSAL TEST
 visited_rooms = set()
@@ -172,7 +174,10 @@ for move in traversal_path:
 
 # In order to run this repeatedly to get a low traversal path 
 # I don't want to see any output until done
-# if len(traversal_path) < 975:
+
+# if len(traversal_path) < 970:
+
+""" To loop, indent from here ..."""
 
 if len(visited_rooms) == len(room_graph):
     print(f"TESTS PASSED: {len(traversal_path)} moves, {len(visited_rooms)} rooms visited")
@@ -182,6 +187,8 @@ else:
 
 # print("Seed:", counter)
 # print("Path:", traversal_path)
+
+""" ...to here """
 
     # if len(traversal_path) < 960:
     #     with open('best.py', 'w') as file:
