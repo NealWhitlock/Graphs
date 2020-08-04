@@ -196,8 +196,8 @@ while iteration < n_times + 1:
     print("Path:", traversal_path)
 
 
-    with open('best_paths.py', 'a') as file:
-        file.write(f"TESTS PASSED: {len(traversal_path)} moves, {len(visited_rooms)} rooms visited\n")
+    with open('best.py', 'a') as file:
+        file.write(f"\nTESTS PASSED: {len(traversal_path)} moves, {len(visited_rooms)} rooms visited\n")
         file.write("[")
         for i, item in enumerate(traversal_path):
             if i == (len(traversal_path) - 1):
